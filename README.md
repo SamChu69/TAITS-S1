@@ -1,332 +1,439 @@
 # TAITS-S1
 Taiwan Alpha Intelligent Trading System — Multi-Agent + AI + Quant Trading Framework
-# ✅ **TAITS_S1 —《台灣阿爾法智能交易系統》最詳細內容的終極規格整合版（Ultra Final Spec）**
+# 🏆 **TAITS_S1 — 台灣阿爾法智能交易系統《終極規格整合版》（Ultra Final Master Specification）**
 
-# 🎯 **【1】TAITS_S1 — 系統概念（System Philosophy）**
-
-**TAITS（Taiwan Alpha Intelligence Trading System） =
-台股專用「多智能體 × 多策略 × AI × 回測 × 自動交易」系統。**
-
-核心理念：
-
-> **讓系統自行「觀察 → 分析 → 決策 → 驗證 → 交易」。**
-
-不是單一策略，而是一個完整 AI 交易生態系。
+# 🚀 **《TAITS_S1 — 終極規格整合版》開始**
 
 ---
 
-# 🧱 **【2】TAITS_S1 — 全域架構（System Architecture Final Version）**
+# ⭐ **第 1 章｜系統總覽（System Overview）**
+
+TAITS（Taiwan Alpha Intelligence Trading System）
+
+> **台灣股市專用的：
+> 多策略 × 多智能體 × 多資料源 × AI 預測 × 回測 × 模擬 × 實盤 × 監控 × UI 控制台 的全自動智慧交易系統。**
+
+系統最重要的方程式：
+
+```
+Final Decision  
+=  Data → Indicators → Strategies → Agents → Aggregator → Confidence → Action
+```
+
+產出：
+
+```
+BUY / SELL / HOLD  
++ 信心分數（0–1）  
++ 理由（多欄位）
+```
+
+---
+
+# ⭐ **第 2 章｜最終系統架構（Final Global Architecture）**
 
 ```
 TAITS_S1
 │── main.py
 │── config.yaml
 │── requirements.txt
-│
+│── README.md
+
+├── config/
+│   └── settings.py
+
 ├── data_sources/
-│     ├── yahoo_loader.py
-│     ├── twse_loader.py
-│     ├── finmind_loader.py
-│     ├── fallback_manager.py
-│     └── cache_manager.py
-│
+│   ├── base_loader.py
+│   ├── yahoo_loader.py
+│   ├── twse_loader.py
+│   ├── finmind_loader.py
+│   ├── fallback_manager.py
+│   └── cache_manager.py
+
 ├── engine/
-│     ├── orchestrator.py
-│     ├── indicator_manager.py
-│     ├── strategy_manager.py
-│     ├── agent_manager.py
-│     ├── signal_aggregator.py
-│     └── data_validator.py
-│
+│   ├── orchestrator.py
+│   ├── indicator_manager.py
+│   ├── strategy_manager.py
+│   ├── agent_manager.py
+│   ├── signal_aggregator.py
+│   └── data_validator.py
+
 ├── indicators/
-│     ├── trend/
-│     ├── momentum/
-│     ├── volatility/
-│     ├── volume/
-│     ├── candle/
-│     ├── chip/
-│     └── ai/
-│
-├── strategies/ (285 策略 plugin)
-│     ├── sma_breakout.py
-│     ├── ema_trend.py
-│     ├── cbl_strategy.py
-│     ├── macd_momentum.py
-│     ├── rsi_reversal.py
-│     ├── volume_spike.py
-│     ├── all_other_279_strategies...
-│
+│   ├── trend/
+│   ├── momentum/
+│   ├── volatility/
+│   ├── volume/
+│   ├── candle/
+│   ├── chip/
+│   ├── ai/
+│   └── cbl/   ← 顧比倒數線 Count Back Line
+
+├── strategies/
+│   ├── base_strategy.py
+│   ├── cbl_strategy.py     ← 新增顧比倒數線策略
+│   ├── trend/
+│   ├── breakout/
+│   ├── reversal/
+│   ├── volume/
+│   ├── chip/
+│   ├── fundamental/
+│   ├── sector/
+│   ├── chan/
+│   ├── ai/
+│   └── all_285_strategies.py (自動註冊)
+
 ├── agents/
-│     ├── technical_agent.py
-│     ├── chip_agent.py
-│     ├── fundamental_agent.py
-│     ├── news_agent.py
-│     ├── sentiment_agent.py
-│     ├── macro_agent.py
-│     ├── pattern_agent.py
-│     ├── chan_agent.py
-│     ├── ai_agent.py
-│     └── risk_agent.py
-│
+│   ├── technical_agent.py
+│   ├── chip_agent.py
+│   ├── fundamental_agent.py
+│   ├── news_agent.py
+│   ├── sentiment_agent.py
+│   ├── macro_agent.py
+│   ├── pattern_agent.py
+│   ├── chan_agent.py
+│   ├── ai_agent.py
+│   └── risk_agent.py
+
 ├── backtest/
-│     ├── backtester.py
-│     ├── position_manager.py
-│     └── report.py
-│
+│   ├── backtester.py
+│   ├── position_manager.py
+│   └── report.py
+
 ├── trading/
-│     ├── sandbox.py
-│     ├── order_manager.py
-│     ├── risk_manager.py
-│     └── broker_fubon.py
-│
+│   ├── sandbox.py
+│   ├── order_manager.py
+│   ├── risk_manager.py
+│   └── broker_fubon.py   ← 富邦 API 模組
+
 └── ui/
-      ├── dashboard.py
-      ├── charts.py
-      └── components/
+    ├── dashboard.py
+    ├── strategy_switch.py  ← 策略開關 UI
+    ├── charts.py
+    └── components/
 ```
 
 ---
 
-# 📡 **【3】資料流程（Data Pipeline）**
+# ⭐ **第 3 章｜最終資料流程（Data Pipeline — Ultra Version）**
 
 ```
-Yahoo → TWSE → FinMind → Cache → Validator → Indicator Layer → Strategy Layer → Agents → Orchestrator → Output
-```
+(1) 資料來源
+Yahoo → TWSE → FinMind → Cache
 
-### 三層 fallback 設計：
+(2) 資料驗證
+缺值 → 補值 → 對齊 → 標準化
 
-1. **Yahoo**（最快、資料最新、但可能 SSL 錯）
-2. **TWSE**（官方、穩定、本地化快）
-3. **FinMind**（最完整，含籌碼/融資/財報）
+(3) 指標層（167 指標）
+MA / EMA / GMMA / CBL / MACD / ADX / RSI / ATR / BB…
 
-所有資料最後都：
+(4) 策略層（285 策略）
+趨勢 / 突破 / 反轉 / 量價 / 籌碼 / 基本面 / NLP / AI / CBL…
 
-* 補值
-* 對齊
-* 清洗
-* 快取
+(5) Agents（10）
+每個 Agent 做獨立分析輸出 score 與 signal
 
----
+(6) Aggregator
+多智能體加權投票（可改模型或 AI ensemble）
 
-# 📊 **【4】Indicator Layer（指標層, 167 指標）**
+(7) Orchestrator
+產出 Final Decision：BUY/SELL/HOLD
 
-TAITS_S1 指標分類：
+(8) Backtest / Sandbox / Live
+三層安全流程保護
 
-| 類別    | 數量 | 內容                             |
-| ----- | -- | ------------------------------ |
-| 趨勢指標  | 40 | MA, EMA, GMMA, MACD, ADX, ATR… |
-| 動能    | 20 | RSI, Stoch, ROC, CCI…          |
-| 波動度   | 15 | ATR, Parkinson, GK…            |
-| 成交量   | 20 | OBV, Volume Spike, A/D…        |
-| K 線   | 18 | Hammer, Engulfing, NR7…        |
-| 籌碼    | 18 | 外資/投信、自營、集中度…                  |
-| 基本面   | 12 | EPS YoY、毛利率…                   |
-| NLP   | 8  | 新聞情緒、事件強度…                     |
-| AI 特徵 | 10 | LSTM, Transformer, Kronos…     |
-| 結構    | 6  | Pivot, HH/HL, LH/LL            |
-| CBL   | 2  | 上升/下降 Count Back Line          |
-
-**指標是策略的基礎，全部模組化、可自動載入。**
-
----
-
-# 🎯 **【5】Strategy Layer（策略層, 285 策略）**
-
-完整分類如下（已正式定稿）：
-
-| 類別              | 數量    |
-| --------------- | ----- |
-| 趨勢策略            | 93    |
-| K 線策略           | 18    |
-| 市場結構            | 18    |
-| 成交量策略           | 14    |
-| 籌碼策略            | 40    |
-| 基本面策略           | 40    |
-| 類股輪動            | 14    |
-| 新聞/NLP          | 20    |
-| 行為心理            | 20    |
-| AI 策略           | 20    |
-| **CBL 策略（新加入）** | **2** |
-
-**所有策略均採 plug-in 動態載入。**
-
-策略格式統一：
-
-```python
-class StrategyName(BaseStrategy):
-    def run(self, df):
-        return {
-            "signal": "BUY / SELL / HOLD",
-            "confidence": float,
-            "reason": "文字理由"
-        }
+(9) UI
+策略開關、各 Agent 分數、K 線、回測等視覺化
 ```
 
 ---
 
-# 🤖 **【6】Agent Layer（10 大智能體）**
+# ⭐ **第 4 章｜資料來源（Data Sources — 3 層 Fallback）**
 
-TAITS_S1 多智能體列表：
+### **Yahoo Finance（主資料源）**
 
-| Agent 名稱         | 功能                             |
-| ---------------- | ------------------------------ |
-| TechnicalAgent   | 技術策略（趨勢/反轉/動能/突破）              |
-| ChipAgent        | 法人、融資券、集中度                     |
-| FundamentalAgent | 財報、EPS、營收                      |
-| NewsAgent        | 新聞分類、利多利空事件                    |
-| SentimentAgent   | 市場情緒、NLP                       |
-| MacroAgent       | SOX、NASDAQ、匯率、VIX              |
-| PatternAgent     | K 線形態比對                        |
-| ChanAgent        | 纏論（筆/線段/中樞）                    |
-| AIAgent          | LSTM / Transformer / Kronos 模型 |
-| RiskAgent        | 最大回撤、波動、倉位管理                   |
+* 股票
+* 匯率（USD/TWD）
+* 類股指數 (SOX, NASDAQ)
+* 盤後資料最快
 
-每個 Agent 都輸出三個欄位：
+### **TWSE**
+
+* 官方資料
+* 無 SSL 錯誤
+* 多種股票資訊
+
+### **FinMind**
+
+* 三大法人
+* 融資券
+* 財報
+* 產業資料
+
+### **Cache（避免 API 重複抓取）**
+
+---
+
+# ⭐ **第 5 章｜指標層（Indicators — 167 指標，最終列表）**
+
+分類如下：
+
+## ① 趨勢指標（40）
+
+SMA, EMA, WMA, HMA, GMMA, MACD, Zero-lag MACD, DMI, ADX, Ichimoku…
+
+## ② 動能指標（20）
+
+RSI, Stoch, CCI, ROC, KDJ, Ultimate Oscillator…
+
+## ③ 波動度（15）
+
+ATR, NATR, HV, GK, YZ, Parkinson…
+
+## ④ 成交量（20）
+
+OBV, A/D, Volume Spike, Volume Ratio…
+
+## ⑤ K 線（18）
+
+Hammer, Engulfing, Three White Soldiers…
+
+## ⑥ 籌碼（18）
+
+外資、投信、自營、集中度、融資券…
+
+## ⑦ 基本面（12）
+
+EPS YoY、毛利率等
+
+## ⑧ NLP（8）
+
+情緒分數、事件強度、新聞量…
+
+## ⑨ AI（10）
+
+LSTM、Transformer、Kronos 預測
+
+## ⑩ 結構（6）
+
+Pivot、Swing High/Low、Trend Line
+
+## ⑪ CBL（2）
+
+* CBL Uptrend Support Line
+* CBL Downtrend Resistance Line
+
+---
+
+# ⭐ **第 6 章｜策略層（Strategies — 285 套最終分類）**
+
+完整分類如下：
+
+| 類別    | 策略數量 |
+| ----- | ---- |
+| 趨勢    | 93   |
+| K 線   | 18   |
+| 市場結構  | 18   |
+| 成交量   | 14   |
+| 籌碼    | 40   |
+| 基本面   | 40   |
+| 類股輪動  | 14   |
+| NLP   | 20   |
+| 行為心理  | 20   |
+| AI 策略 | 20   |
+| CBL   | 2    |
+
+所有策略皆使用 plug-in：
+
+```
+/strategies/*.py → 自動註冊
+```
+
+---
+
+# ⭐ **第 7 章｜智能體層（Agents — 10 大最終版）**
+
+| Agent            | 功能                        |
+| ---------------- | ------------------------- |
+| TechnicalAgent   | 技術面全部策略                   |
+| ChipAgent        | 籌碼面                       |
+| FundamentalAgent | 財報                        |
+| NewsAgent        | 新聞分類 NLP                  |
+| SentimentAgent   | 市場情緒                      |
+| MacroAgent       | SOX、NASDAQ、匯率、VIX         |
+| PatternAgent     | K 線形態                     |
+| ChanAgent        | 纏論                        |
+| AIAgent          | LSTM, Transformer, Kronos |
+| RiskAgent        | 風控、最大回撤、倉位管理              |
+
+每個 Agent 輸出：
 
 ```
 {
-  signal: BUY/SELL/HOLD,
-  score: 0~1,
-  reason: [...]
+   "signal": BUY/SELL/HOLD,
+   "score": 0~1,
+   "reason": [...]
 }
 ```
 
 ---
 
-# 🧠 **【7】Orchestrator（總決策核心）**
+# ⭐ **第 8 章｜Orchestrator（總控大腦）**
 
-Orchestrator = TAITS 的大腦。
+功能：
 
-流程：
-
-```
-Load Data  
-↓  
-Indicator Manager  
-↓  
-Strategy Manager  
-↓  
-Agent Manager（10 個 Agent）  
-↓  
-Signal Aggregator（多因子加權模型）  
-↓  
-Final Decision = BUY / SELL / HOLD  
-```
+* 整合所有 Agents
+* 加權投票機制
+* 跨策略一致性檢查
+* 最終決策輸出
 
 演算法：
 
 ```
-final_score = Σ(agent_score × weight) / Σ(weight)
+final_score = Σ(agent_score × weight)
 ```
 
-confidence > 0.65 → BUY
-confidence < -0.65 → SELL
+決策：
+
+```
+BUY  if score > 0.65
+SELL if score < -0.65
+HOLD otherwise
+```
 
 ---
 
-# 🔬 **【8】Backtest Layer（回測引擎）**
+# ⭐ **第 9 章｜回測與模擬（Backtest / Sandbox）**
+
+### Backtest Engine
+
+* event-driven
+* 單策略、多策略
+* 分析盈虧、勝率、MDD、Sharpe
+
+### Sandbox（策略隔離區）
+
+* 新策略需連跑 21 天穩定度
+* 避免 junk strategy 直接進 Live
+
+---
+
+# ⭐ **第 10 章｜Live Trading（富邦 API）**
+
+包含：
+
+* 登入
+* 下單（整股/零股）
+* 市價/限價
+* 停損停利
+* 委託回報
+* 錯誤自動重試
+* 風控
+
+程式模組：
+
+```
+/trading/broker_fubon.py
+```
+
+---
+
+# ⭐ **第 11 章｜UI（Streamlit Dashboard）**
 
 功能：
 
-* 事件驅動架構（event-driven）
-* 指標與策略結果記錄
-* 交易紀錄（trade logs）
-* 多策略分數分析
-* 數據結果圖表化
-* Report（收益、回撤、勝率、Sharpe）
+* 策略開關（Trend / Breakout / Reversal / Chip / AI…）
+* 指標顯示
+* Smart Agent 雷達圖
+* CBL 支撐線與 K 線疊圖
+* 回測結果
+* Live 訊號
+* 系統健康指標
 
 ---
 
-# 🧪 **【9】Sandbox（沙盒）**
+# ⭐ **第 12 章｜參考資料（Reference — Final Master List）**
 
-用於：
+## 🔹 指標與技術分析
 
-* 避免策略直接進入 Live
-* 檢測 21 天穩定度
-* 模擬滑價（drift model）
+* TA-Lib 官方文檔
+* Steve Nison《Japanese Candlestick Charting Techniques》
+* Bulkowski Pattern Study
 
----
+## 🔹 纏論（Chan Theory）
 
-# 💵 **【10】Live Trading（富邦 API）**
+* 通達信 Chanlun
+* Chan 教學文檔
 
-模組：
+## 🔹 策略框架
 
-* broker_fubon.py（登入、下單）
-* order_manager.py（委託管理）
-* risk_manager.py（停損、停利、倉位）
+* QuantConnect Lean
+* Backtrader
+* Zipline
 
-支援：
+## 🔹 多智能體
 
-* 限價 / 市價單
-* 盤中監控
-* 止損策略
-* 部位追蹤
+* TradingAgents-AI
+* AutoGPT
 
----
+## 🔹 AI 模型
 
-# 🖥️ **【11】UI Layer（Streamlit Dashboard）**
+* Kronos K-Line Model
+* LSTM 時序模型
+* Transformer Time Series
 
-功能：
+## 🔹 台股資料源
 
-* 策略開關（checkbox）
-* 策略群組開關（趨勢/突破/反轉/CBL…）
-* 技術 Agent 分數
-* 多 Agent 合成 radar 圖
-* 回測績效報表
-* 即時行情（未來可加）
-
-UI 運行方式：
-
-```
-streamlit run ui/dashboard.py
-```
+* TWSE Open API
+* FinMind
+* Yahoo Finance
 
 ---
 
-# ☑️ **【12】TAITS_S1 vs 普通量化系統（壓倒性差異）**
+# ⭐ **第 13 章｜參考程式（Reference Code）**
 
-| 功能          | 普通量化系統 | TAITS_S1     |
-| ----------- | ------ | ------------ |
-| 只有單一策略      | ✔      | ✖            |
-| 多策略投票       | ✖      | ✔（285 策略）    |
-| AI 模型       | 少      | ✔（三模型）       |
-| 多智能體        | ✖      | ✔（10 Agents） |
-| 台股專屬資料源     | ✖      | ✔            |
-| 自動 fallback | ✖      | ✔            |
-| sandbox 安全層 | ✖      | ✔            |
-| UI 控制台      | 少      | ✔（完整控制台）     |
+## 1. Data loader 類別
 
----
+* YahooLoader（yfinance）
+* TWSELoader（requests）
+* FinMindLoader（API Token模式）
 
-# 🏁 **【13】TAITS_S1 開發指南（給 Cursor / VS Code Agents）**
+## 2. Indicators Template
 
-只要告訴它：
-
-```
-請依照 TAITS_S1 最終規格，建立 Python 專案架構並填入最小可執行骨架。
+```python
+class BaseIndicator:
+    def compute(self, df):
+        pass
 ```
 
-它會根據上面這份 Spec 自動產生正確檔案。
+## 3. Strategy Template
+
+```python
+class BaseStrategy:
+    def run(self, df):
+        return {"signal": "HOLD", "confidence": 0.0, "reason": ""}
+```
+
+## 4. AI Agent Example
+
+```python
+class AIAgent:
+    def analyze(self, df):
+        prob = self.model.predict(df)
+        return {"signal": "BUY" if prob>0.6 else "HOLD", "score": prob}
+```
+
+## 5. Orchestrator Template
+
+```python
+class Orchestrator:
+    def run(self):
+        self.load_data()
+        self.run_indicators()
+        self.run_strategies()
+        self.run_agents()
+        return self.aggregate()
+```
 
 ---
 
-# 🎉 **【終極結論】**
-
-你現在擁有的是：
-
-> **台灣股市領域中，最完整、最全面、最可執行的 AI 量化系統規格書。**
-
-TAITS_S1 已具備：
-
-* 世界級系統架構
-* 285 策略
-* 167 指標
-* 10 Agents
-* AI 模型整合
-* 回測/模擬/實盤
-* UI 控制台
-* 富邦 API 自動下單
-* 完整開發藍圖
-
----
-
+# 🎉 **《TAITS_S1 — 終極規格整合版》**
