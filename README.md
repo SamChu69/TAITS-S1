@@ -133,67 +133,73 @@ TAITS_S1/
 
 用於實作每個模組的程式要求、資料格式、介面定義。
 例如：
-
 🔰 核心架構群
-編號	標題
-C-01	完整專案目錄＋責任定義
-C-02	最小可運行骨架（Python 專案）
-C-03	285 策略 Plugin 架構
-C-04	指標管理器 × 策略管理器 × Agents × Orchestrator 關聯圖
-C-05	資料流設計（Data Flow + Validator）
-C-06	資料快取層 Cache System
+| 編號   | 標題                                        |
+| ---- | ----------------------------------------- |
+| C-01 | 完整專案目錄＋責任定義                               |
+| C-02 | 最小可運行骨架（Python 專案）                        |
+| C-03 | 285 策略 Plugin 架構                          |
+| C-04 | 指標管理器 × 策略管理器 × Agents × Orchestrator 關聯圖 |
+| C-05 | 資料流設計（Data Flow + Validator）              |
+| C-06 | 資料快取層 Cache System                        |
 📊 指標層（Indicators Layer）
-編號	標題
-C-07	指標層完整規格
-C-08	技術指標核心規格（Indicator Core Spec）
-C-09	技術指標：數學接口標準（IIndicator）
-C-10	技術指標：GMMA、MACD、RSI、ATR… 參數規格
+| 編號   | 標題                            |
+| ---- | ----------------------------- |
+| C-07 | 指標層完整規格                       |
+| C-08 | 技術指標核心規格（Indicator Core Spec） |
+| C-09 | 技術指標：數學接口標準（IIndicator）       |
+| C-10 | 技術指標：GMMA、MACD、RSI、ATR… 參數規格  |
 📈 策略層（Strategies Layer）
-編號	標題
-C-11	策略層核心接口（IStrategy Spec）
-C-12	策略訊號整合層（Voting Engine）
-C-13	策略資料管線（Strategy Data Pipeline）
-C-14	TradingAgents × Strategies 完整互動規格
-C-15	策略層 ULTRA FINAL（全部 285 策略分類）
+| 編號   | 標題                                |
+| ---- | --------------------------------- |
+| C-11 | 策略層核心接口（IStrategy Spec）           |
+| C-12 | 策略訊號整合層（Voting Engine）            |
+| C-13 | 策略資料管線（Strategy Data Pipeline）    |
+| C-14 | TradingAgents × Strategies 完整互動規格 |
+| C-15 | 策略層 ULTRA FINAL（全部 285 策略分類）      |
 🤖 智能體層（Agents Layer）
-編號	標題
-C-16	Agents Core（Agent 介面規格）
-C-17	Agents 全列表：10 大智能體規格完整定義
-C-18	Signal Aggregator（訊號整合引擎）
-C-19	Decision Engine（決策處理管線）
+| 編號   | 標題                        |
+| ---- | ------------------------- |
+| C-16 | Agents Core（Agent 介面規格）   |
+| C-17 | Agents 全列表：10 大智能體規格完整定義  |
+| C-18 | Signal Aggregator（訊號整合引擎） |
+| C-19 | Decision Engine（決策處理管線）   |
 🏦 交易層（Execution, Portfolio, Risk）
-編號	標題
-C-20	Portfolio Engine（投資組合模型）
-C-21	Backtest Engine（事件驅動）
-C-22	模擬交易 Sandbox Engine
-C-23	Backtest & 回測報告模組
-C-24	Live Trading（富邦 API 全規格）
-C-25	Risk Control（風險控制核心）
-C-26	Position Sizing（部位管理）
+| 編號   | 標題                       |
+| ---- | ------------------------ |
+| C-20 | Portfolio Engine（投資組合模型） |
+| C-21 | Backtest Engine（事件驅動）    |
+| C-22 | 模擬交易 Sandbox Engine      |
+| C-23 | Backtest & 回測報告模組        |
+| C-24 | Live Trading（富邦 API 全規格） |
+| C-25 | Risk Control（風險控制核心）     |
+| C-26 | Position Sizing（部位管理）    |
 📝 系統工具（System Utility & Logging）
-編號	標題
-C-27	Logging + Audit Trail（交易審計與系統紀錄）
-C-28	Config & Settings（模式管理與環境參數）
-C-29	Monitoring（監控 / 警報 / 健康檢測）
-C-30	測試與驗證框架（Unit Test & Regression Test）
-🧬 其他進階章節（你後來要求新增的）
-編號	標題
-C-31	Backtest Report System（KPI、統計、策略績效細節）
-C-32	模組互動圖（Everything Interaction Map）
-C-33	Paper Trading 模型（虛擬券商）
-C-34	Live Trading 2.0（Event-based broker spec）
-C-35	策略評分引擎（Strategy Scoring Engine）
-C-36	AI Model Layer（LSTM & Transformer & Kronos）
-C-37	多策略投票（Multi-Strategy Voting Engine）
-C-38	Position Risk Engine（最大跌損、自動調整）
-C-39	Execution Engine（下單、撤單、改單）
-C-40	Portfolio Engine 2.0（資金分配＋再平衡）
-C-41	Alert & Event System
-C-42	Regime Engine（市場 regime 判定）
-C-43	Budget Engine（頭寸限制）
-C-44	Capital Allocation Engine
-C-45	Sizing Engine 2.0（多層級部位計算）
-C-46	Execution Manager（流動性、高頻細節）
+| 編號   | 標題                                   |
+| ---- | ------------------------------------ |
+| C-27 | Logging + Audit Trail（交易審計與系統紀錄）     |
+| C-28 | Config & Settings（模式管理與環境參數）         |
+| C-29 | Monitoring（監控 / 警報 / 健康檢測）           |
+| C-30 | 測試與驗證框架（Unit Test & Regression Test） |
+🧬 其他進階章節
+| 編號   | 標題                                          |
+| ---- | ------------------------------------------- |
+| C-31 | Backtest Report System（KPI、統計、策略績效細節）       |
+| C-32 | 模組互動圖（Everything Interaction Map）           |
+| C-33 | Paper Trading 模型（虛擬券商）                      |
+| C-34 | Live Trading 2.0（Event-based broker spec）   |
+| C-35 | 策略評分引擎（Strategy Scoring Engine）             |
+| C-36 | AI Model Layer（LSTM & Transformer & Kronos） |
+| C-37 | 多策略投票（Multi-Strategy Voting Engine）         |
+| C-38 | Position Risk Engine（最大跌損、自動調整）             |
+| C-39 | Execution Engine（下單、撤單、改單）                  |
+| C-40 | Portfolio Engine 2.0（資金分配＋再平衡）              |
+| C-41 | Alert & Event System                        |
+| C-42 | Regime Engine（市場 regime 判定）                 |
+| C-43 | Budget Engine（頭寸限制）                         |
+| C-44 | Capital Allocation Engine                   |
+| C-45 | Sizing Engine 2.0（多層級部位計算）                  |
+| C-46 | Execution Manager（流動性、高頻細節）                 |
 
 ---
 
