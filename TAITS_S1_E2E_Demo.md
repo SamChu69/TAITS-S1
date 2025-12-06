@@ -1,8 +1,3 @@
-好，這一段我就直接給你一份 **可以貼進 docs/ 的「TAITS_S1 最小 E2E Demo 規格」**，你也可以直接丟給 Cursor 叫它照做。
-目標：**先做出會動的一圈小系統，再慢慢長成你那套完整 V3.1 / TAITS_S1。**
-
----
-
 # 📘 TAITS_S1 Minimal E2E Demo Spec（單檔 E2E 最小可行版）
 
 > 建議檔名：`docs/TAITS_S1_E2E_Demo.md`
