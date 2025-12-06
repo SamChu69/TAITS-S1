@@ -249,27 +249,3 @@ TAITS_S1/
 * 下單 / 回補 / 委託回報
 * 錯誤處理
 * 重試機制
-
-如果你完成 Fubon SDK 安裝，我可以幫你寫完整可用版本。
-
----
-
-# ## 🧾 License
-
-MIT 或你想使用的授權方式皆可。
-
----
-
-# ## ⭐ 如果你希望，我可以進一步幫你：
-
-### ✔ 自動生成 GitHub Wiki
-
-### ✔ 自動生成 TAITS Logo
-
-### ✔ 自動生成多圖版本 README
-
-### ✔ 自動生成整個 TAITS 官網（用 GitHub Pages）
-
-### ✔ 自動生成開發 Roadmap、Milestone 與 Issue 模板
-
----
